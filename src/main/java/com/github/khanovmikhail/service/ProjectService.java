@@ -1,13 +1,20 @@
 package com.github.khanovmikhail.service;
 
-import com.github.khanovmikhail.entity.Project;
+import com.github.khanovmikhail.model.dto.ProjectDetailDto;
+import com.github.khanovmikhail.model.dto.ProjectDto;
 
 import java.util.List;
 
 public interface ProjectService {
-    List<Project> getAllProjects();
-    Project getProjectByName(String name);
-    boolean addNewProject(String name);
-    boolean changeProjectName(String oldName, String newName);
-    boolean deleteProject(String name);
+    List<ProjectDto> findAll();
+
+    ProjectDetailDto findById(long id);
+
+    ProjectDetailDto findByName(String name);
+
+    ProjectDto addProject(ProjectDto project);
+
+    ProjectDetailDto updateProject(long id, ProjectDto project);
+
+    void deleteProject(long id);
 }

@@ -1,13 +1,20 @@
 package com.github.khanovmikhail.service;
 
-import com.github.khanovmikhail.entity.Position;
+import com.github.khanovmikhail.model.dto.PositionDetailDto;
+import com.github.khanovmikhail.model.dto.PositionDto;
 
 import java.util.List;
 
 public interface PositionService {
-    List<Position> getAllPositions();
-    Position getPositionByName(String name);
-    boolean addNewPosition(String name);
-    boolean changeName(String oldName, String newName);
-    boolean deletePosition(String name);
+    List<PositionDto> findAll();
+
+    PositionDetailDto findById(long id);
+
+    PositionDetailDto findByName(String name);
+
+    PositionDto addPosition(PositionDto position);
+
+    PositionDetailDto updatePosition(long id, PositionDto position);
+
+    void deletePosition(long id);
 }

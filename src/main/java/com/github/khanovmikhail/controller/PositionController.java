@@ -1,47 +1,54 @@
 package com.github.khanovmikhail.controller;
 
-import com.github.khanovmikhail.entity.Position;
+import com.github.khanovmikhail.model.dto.PositionDetailDto;
+import com.github.khanovmikhail.model.dto.PositionDto;
+import com.github.khanovmikhail.model.validation.group.ForCreate;
 import com.github.khanovmikhail.service.PositionService;
+import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/positions")
+@RequiredArgsConstructor
 public class PositionController {
-    @Autowired
-    private PositionService positionService;
-
-    @GetMapping("/{name}")
-    public Position getPositionByName(@PathVariable String name) {
-        return positionService.getPositionByName(name);
-    }
+    private final PositionService positionService;
 
     @GetMapping
-    public List<Position> getAllPositions() {
-        return positionService.getAllPositions();
+    public List<PositionDto> findAll() {
+        return positionService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public PositionDetailDto findById(@PathVariable long id) {
+        return positionService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public PositionDetailDto findByName(@PathVariable String name) {
+        return positionService.findByName(name);
     }
 
     @PostMapping
-    public ResponseEntity<?> createPosition(@RequestParam String name) {
-        positionService.addNewPosition(name);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public PositionDto addPosition(@Validated({ForCreate.class, Default.class})
+                                       @RequestBody PositionDto position) {
+        return positionService.addPosition(position);
     }
 
-    @PutMapping("/{name}")
-    public ResponseEntity<?> modifyPosition(@PathVariable String name,
-                                            @RequestParam String newName) {
-        positionService.changeName(name, newName);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PatchMapping("/{id}")
+    public PositionDetailDto updatePosition(@PathVariable long id,
+                                            @Valid @RequestBody PositionDto position) {
+        return positionService.updatePosition(id, position);
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity<?> removePosition(@PathVariable String name) {
-        positionService.deletePosition(name);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePosition(@PathVariable long id) {
+        positionService.deletePosition(id);
     }
 }

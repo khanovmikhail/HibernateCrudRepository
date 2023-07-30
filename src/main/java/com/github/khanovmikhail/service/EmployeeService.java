@@ -1,16 +1,20 @@
 package com.github.khanovmikhail.service;
 
-import com.github.khanovmikhail.entity.Employee;
+import com.github.khanovmikhail.model.dto.EmployeeDetailDto;
+import com.github.khanovmikhail.model.dto.EmployeeDto;
 
 import java.util.List;
 
 public interface EmployeeService {
-    List<Employee> getAllEmployees();
-    Employee getEmployeeById(int id);
-    boolean addNewEmployee(String name);
-    boolean changeName(int id, String newName);
-    boolean deleteEmployee(int id);
-    boolean assignToPosition(int employeeId, String positionName);
-    boolean assignToProject(int employeeId, String projectName);
-    boolean removeFromProject(int employeeId, String projectName);
+    List<EmployeeDto> findAll();
+
+    EmployeeDetailDto findById(long id);
+
+    List<EmployeeDetailDto> findAllByName(String name);
+
+    EmployeeDetailDto addEmployee(EmployeeDetailDto employee);
+
+    EmployeeDetailDto updateEmployee(long id, EmployeeDetailDto employee);
+
+    void deleteEmployee(long id);
 }

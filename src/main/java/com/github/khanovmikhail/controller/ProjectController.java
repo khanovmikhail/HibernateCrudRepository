@@ -1,47 +1,54 @@
 package com.github.khanovmikhail.controller;
 
-import com.github.khanovmikhail.entity.Project;
+import com.github.khanovmikhail.model.dto.ProjectDetailDto;
+import com.github.khanovmikhail.model.dto.ProjectDto;
+import com.github.khanovmikhail.model.validation.group.ForCreate;
 import com.github.khanovmikhail.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
+@RequiredArgsConstructor
 public class ProjectController {
-    @Autowired
-    private ProjectService projectService;
-
-    @GetMapping("/{name}")
-    public Project getProjectByName(@PathVariable String name) {
-        return projectService.getProjectByName(name);
-    }
+    private final ProjectService projectService;
 
     @GetMapping
-    public List<Project> getAllProjects() {
+    public List<ProjectDto> showAllProjects() {
+        return projectService.findAll();
+    }
 
-        return projectService.getAllProjects();
+    @GetMapping("/{id}")
+    public ProjectDetailDto showProjectById(@PathVariable long id) {
+        return projectService.findById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public ProjectDetailDto showProjectByName(@PathVariable String name) {
+        return projectService.findByName(name);
     }
 
     @PostMapping
-    public ResponseEntity<?> createProject(@RequestParam String name) {
-        projectService.addNewProject(name);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ProjectDto addProject(@Validated({ForCreate.class, Default.class})
+                                     @RequestBody ProjectDto project) {
+        return projectService.addProject(project);
     }
 
-    @PutMapping("/{name}")
-    public ResponseEntity<?> modifyProject(@PathVariable String name,
-                                     @RequestParam(required = false) String newName) {
-        projectService.changeProjectName(name, newName);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PatchMapping("/{id}")
+    public ProjectDetailDto updateProject(@PathVariable long id,
+                                          @Valid @RequestBody ProjectDto project) {
+        return projectService.updateProject(id, project);
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity<?> removeProject(@PathVariable String name) {
-        projectService.deleteProject(name);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@PathVariable long id) {
+        projectService.deleteProject(id);
     }
 }
