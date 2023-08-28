@@ -1,19 +1,20 @@
 package com.github.khanovmikhail.service.impl;
 
+import com.github.khanovmikhail.dao.ProjectDao;
+import com.github.khanovmikhail.model.dto.ProjectDetailDto;
+import com.github.khanovmikhail.model.dto.ProjectDto;
+import com.github.khanovmikhail.model.entity.Project;
+import com.github.khanovmikhail.service.ProjectService;
+import com.github.khanovmikhail.service.converter.ProjectConverter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
-import ru.aston.company.dao.ProjectDao;
-import ru.aston.company.model.dto.ProjectDetailDto;
-import ru.aston.company.model.dto.ProjectDto;
-import ru.aston.company.model.entity.Project;
-import ru.aston.company.service.ProjectService;
-import ru.aston.company.service.converter.ProjectConverter;
 
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.util.StringUtils.hasText;
 
 @Service
 @RequiredArgsConstructor

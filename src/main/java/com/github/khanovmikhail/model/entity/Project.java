@@ -14,8 +14,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "projects", schema = "task03")
+@Table(name = "project", schema = "public")
 public class Project {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

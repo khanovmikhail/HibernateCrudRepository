@@ -7,7 +7,7 @@ import org.hibernate.Hibernate;
 import java.util.List;
 import java.util.Objects;
 
-@Table(name = "employees", schema = "task03")
+@Table(name = "employee", schema = "public")
 @Entity
 @Builder
 @Getter
@@ -29,7 +29,7 @@ public class Employee {
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "employee_projects", schema = "task03",
+    @JoinTable(name = "employee_project", schema = "public",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private List<Project> projects;

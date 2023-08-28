@@ -1,19 +1,20 @@
 package com.github.khanovmikhail.service.impl;
 
+import com.github.khanovmikhail.dao.PositionDao;
+import com.github.khanovmikhail.model.dto.PositionDetailDto;
+import com.github.khanovmikhail.model.dto.PositionDto;
+import com.github.khanovmikhail.model.entity.Position;
+import com.github.khanovmikhail.service.PositionService;
+import com.github.khanovmikhail.service.converter.PositionConverter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
-import ru.aston.company.dao.PositionDao;
-import ru.aston.company.model.dto.PositionDetailDto;
-import ru.aston.company.model.dto.PositionDto;
-import ru.aston.company.model.entity.Position;
-import ru.aston.company.service.PositionService;
-import ru.aston.company.service.converter.PositionConverter;
 
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.util.StringUtils.hasText;
 
 @Service
 @RequiredArgsConstructor
