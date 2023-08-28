@@ -9,16 +9,16 @@ Web service (REST) application that allows to made CRUD operations in DB.
 5. Lombok
 
 ## 2. Database
-1. Project
-   * Name 
-   * Latitude 
-   * Longitude
+1. Employee
+   * first_name
+   * last_name
+   * position
 2. Position 
-   * From_city 
-   * To city 
-   * Distance
-3. Employee 
-   * From_city 
-   * To city 
-   * Distance
+   * name
+3. Project 
+   * name
+4. Employee_project
+   * employee_id 
+   * project_id
+   
     
