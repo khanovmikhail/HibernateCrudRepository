@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS employee
     last_name character varying(30) NOT NULL,
     position_id integer,
     CONSTRAINT fk_emp_pos FOREIGN KEY (position_id)
-    REFERENCES positions (id) MATCH SIMPLE
+    REFERENCES position (id) MATCH SIMPLE
     ON UPDATE CASCADE
     ON DELETE SET NULL
     );
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS employee_project
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     CONSTRAINT fk_proj_emp_proj FOREIGN KEY (project_id)
-    REFERENCES projects (id) MATCH SIMPLE
+    REFERENCES project (id) MATCH SIMPLE
     ON UPDATE CASCADE
     ON DELETE CASCADE
     );
